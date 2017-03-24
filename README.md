@@ -1,4 +1,4 @@
-### c++ Codes by ctyzxx
+### C++ Codes by ctyzxx
 Codes here are answers to Problems in Online Judge Platforms<br/>
 Common Online Judge sites are below.<br/><hr/>
 [OpenJudge](http://www.openjudge.cn/)<br/>
