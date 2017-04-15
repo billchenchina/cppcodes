@@ -105,7 +105,8 @@ void getGlobalRoot(){
 }
 
 void output(){
-    for(int i=0;i<queryNum;++i){
-        cout<<Result[i]<<endl;
+    for(int i=0;i<queryNum*2;++i){
+	if(Result[i]!=0)
+            cout<<Result[i]<<endl;
     }
 }
