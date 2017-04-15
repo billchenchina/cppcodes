@@ -14,7 +14,7 @@ inline void save(int,int);
 void getGlobalRoot();
 void doLCA(int);
 void input();
-void preP();
+void preP();//pre_process
 int getAncestor(int);
 void output();
 
@@ -35,7 +35,7 @@ int main(){
     for(i=0;i<T;++i){
         input();
         doLCA(GlobalRoot);
-		output();
+	output();
     }
 	return 0;
 }
@@ -64,13 +64,12 @@ void input(){
 
 void preP(){
 	fill(Father, Father+500,0);
-    for(int i=0;i<500;i++)Ancestor[i]=i;
 	fill(Result,Result+500,0);
-	GlobalRoot=0;
 	querys.clear();
 	fill(vis,vis+500,0);
 	for(int i=0;i<=pointNum;i++){
 		son[i].clear();
+		Ancestor[i]=i;
 	}
 }
 
@@ -82,9 +81,10 @@ void doLCA(int p){
     	if(querys[i].from==p&&vis[querys[i].to]==true){
             save(i,getAncestor(querys[i].to));
     	}
-	}
-	vis[p]=true;
-	Ancestor[p]=Father[p];
+    }
+    vis[p]=true;
+    Ancestor[p]=Father[p];
+    getAncestor(p);
     return;
 }
 inline void save(int queryi,int sharedAncestor){
