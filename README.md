@@ -11,3 +11,4 @@ Common Online Judge sites are below.<br/><hr/>
 [HUSTOJ](http://acm.hust.edu.cn/)<br/>
 [HOJ](http://acm.hit.edu.cn/hoj/)<br/>
 [HRBUST](http://acm.hrbust.edu.cn/)<br/>
+[nefu oj](http://acm.nefu.edu.cn/)<br />
