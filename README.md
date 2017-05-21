@@ -12,3 +12,5 @@ Common Online Judge sites are below.<br/><hr/>
 [HOJ](http://acm.hit.edu.cn/hoj/)<br/>
 [HRBUST](http://acm.hrbust.edu.cn/)<br/>
 [nefu oj](http://acm.nefu.edu.cn/)<br />
+[HlJSSYZXOJ](http://hljssyzx.openjudge.cn/)<br />
+[HSDFZ](http://61.180.148.52:1001/oj/)<br />
