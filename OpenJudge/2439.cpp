@@ -33,9 +33,19 @@ struct cowRange {
             rchild->addNum(position,value);
         }
     }
-    int searchValueInRange(int leftR,int RightR){
+    /*
+    This part is no use
+    int searchValueInRange(int leftR,int rightR){
+        if(leftR==this->leftRange&&rightR==this->rightRange){
+            return this->maxInRange-this->minInRange;
+        }else if(mix(this->leftRange,this->rightRange)>=rightR){
+            return this->lchild->searchValueInRange(leftR,rightR);
+        }else if(mix(this->leftRange,this->rightRange)<leftR){
+            return this->rchild->searchValueInRange(leftR,rightR);
+        }else{
 
-    }
+        }
+    }*/
 };
 
 int main() {
