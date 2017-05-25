@@ -1,9 +1,19 @@
 /*
  * Unfinished
- *
+ * Sample Input 1:
+ * 6 2
+ * 5 5 3 2 2 2
+ * 2 2 1 1 2 1
+ * Sample Output 1:
+ * 82
+ * Sample Input 2:
+ * 15 4
+ * 5 10 8 2 2 2 9 9 7 7 5 6 4 2 4
+ * 2 2 3 3 4 3 3 2 4 4 4 4 1 1 1
+ * Sample Output 2:
+ * 1388
 **/
 #include <vector>
-#include <fstream>
 #define MODNUM 10007
 using namespace std;
 struct node {
@@ -16,6 +26,7 @@ typedef vector<node> nodelist;
 #ifdef ONLINE_JUDGE
 #include <iostream>
 #else
+#include <fstream>
 #define cin fin
 #define cout fout
 #endif // ONLINE_JUDGE
@@ -26,8 +37,13 @@ typedef vector<node> nodelist;
 
 
 int main() {
+#ifndef BILLCHENCHINADEBUGONPC
+#ifndef ONLINE_JUDGE
     ifstream fin("sum.in");
     ofstream fout("sum.out");
+#endif // ONLINE_JUDGE
+#endif // BILLCHENCHINADEBUGONPC
+
     int n,m;
     cin>>n>>m;
     vector<node> ArrayList(n+1);

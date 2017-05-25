@@ -1,5 +1,7 @@
 //Unfinished
+//Wrong Answer
 #include <iostream>
+#include <climits>
 #define mix(x,y) x+(y-x)/2
 using namespace std;
 struct cowRange {
@@ -25,61 +27,50 @@ struct cowRange {
     void addNum(int position,int value) {
         this->maxInRange=max(this->maxInRange,value);
         this->minInRange=min(this->minInRange,value);
-        if(this->leftRange==this->rightRange&&position==this->leftRange) {
+        if(this->leftRange==this->rightRange) {
             return;
-        } else if(mix(this->rightRange,this->leftRange)>=position) {
+        } else if(mix(this->leftRange,this->rightRange)>=position) {
             lchild->addNum(position,value);
-        } else if(mix(this->rightRange,this->leftRange)<position) {
+        } else if(mix(this->leftRange,this->rightRange)<position) {
             rchild->addNum(position,value);
         }
     }
-    int getmax(int lrange,int rrange){
-        if(lrange==this->leftRange&&rrange==this->rightRange){
+    int getmax(int lrange,int rrange) {
+        if(lrange==this->leftRange&&rrange==this->rightRange) {
             return this->maxInRange;
-        }else{
+        } else {
             int mid=mix(this->leftRange,this->rightRange);
-            if(lrange>mid){
+            if(lrange>mid) {
                 return this->rchild->getmax(lrange,rrange);
-            }else if(rrange<=mid){
+            } else if(rrange<=mid) {
                 return this->lchild->getmax(lrange,rrange);
-            }else{
+            } else {
                 int lmax,rmax;
-                lmax=this->lchild->getmax(lrange,rrange);
-                rmax=this->rchild->getmax(lrange,rrange);
+                lmax=this->lchild->getmax(lrange,mid);
+                rmax=this->rchild->getmax(mid+1,rrange);
                 return lmax>rmax?lmax:rmax;
             }
         }
     }
-    int getmin(int lrange,int rrange){
-        if(lrange==this->leftRange&&rrange==this->rightRange){
+    int getmin(int lrange,int rrange) {
+        //cout<<lrange<<' '<<rrange<<' ';
+        //cout<<this->leftRange<<' '<<this->rightRange<<endl;
+        if(lrange==this->leftRange&&rrange==this->rightRange) {
             return this->minInRange;
-        }else{
+        } else {
             int mid=mix(this->leftRange,this->rightRange);
-            if(lrange>mid){
+            if(lrange>mid) {
                 return this->rchild->getmin(lrange,rrange);
-            }else if(rrange<=mid){
+            } else if(rrange<=mid) {
                 return this->lchild->getmin(lrange,rrange);
-            }else{
+            } else {
                 int lmin,rmin;
-                lmin=this->lchild->getmin(lrange,rrange);
-                rmin=this->rchild->getmin(lrange,rrange);
+                lmin=this->lchild->getmin(lrange,mid);
+                rmin=this->rchild->getmin(mid+1,rrange);
                 return lmin>rmin?lmin:rmin;
             }
         }
     }
-    /*
-    This part is no use
-    int searchValueInRange(int leftR,int rightR){
-        if(leftR==this->leftRange&&rightR==this->rightRange){
-            return this->maxInRange-this->minInRange;
-        }else if(mix(this->leftRange,this->rightRange)>=rightR){
-            return this->lchild->searchValueInRange(leftR,rightR);
-        }else if(mix(this->leftRange,this->rightRange)<leftR){
-            return this->rchild->searchValueInRange(leftR,rightR);
-        }else{
-
-        }
-    }*/
 };
 
 int main() {
@@ -95,6 +86,10 @@ int main() {
         int l,r;
         cin>>l>>r;
         //TODO
+        int maxn=root->getmax(l,r);
+        int minn=root->getmin(l,r);
+        cout<<maxn-minn<<endl;
+
     }
 
 }
