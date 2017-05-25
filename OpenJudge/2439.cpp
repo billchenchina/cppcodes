@@ -33,6 +33,40 @@ struct cowRange {
             rchild->addNum(position,value);
         }
     }
+    int getmax(int lrange,int rrange){
+        if(lrange==this->leftRange&&rrange==this->rightRange){
+            return this->maxInRange;
+        }else{
+            int mid=mix(this->leftRange,this->rightRange);
+            if(lrange>mid){
+                return this->rchild->getmax(lrange,rrange);
+            }else if(rrange<=mid){
+                return this->lchild->getmax(lrange,rrange);
+            }else{
+                int lmax,rmax;
+                lmax=this->lchild->getmax(lrange,rrange);
+                rmax=this->rchild->getmax(lrange,rrange);
+                return lmax>rmax?lmax:rmax;
+            }
+        }
+    }
+    int getmin(int lrange,int rrange){
+        if(lrange==this->leftRange&&rrange==this->rightRange){
+            return this->minInRange;
+        }else{
+            int mid=mix(this->leftRange,this->rightRange);
+            if(lrange>mid){
+                return this->rchild->getmin(lrange,rrange);
+            }else if(rrange<=mid){
+                return this->lchild->getmin(lrange,rrange);
+            }else{
+                int lmin,rmin;
+                lmin=this->lchild->getmin(lrange,rrange);
+                rmin=this->rchild->getmin(lrange,rrange);
+                return lmin>rmin?lmin:rmin;
+            }
+        }
+    }
     /*
     This part is no use
     int searchValueInRange(int leftR,int rightR){
@@ -60,7 +94,7 @@ int main() {
     for(int i=1; i<=Q; i++) {
         int l,r;
         cin>>l>>r;
-
+        //TODO
     }
 
 }
