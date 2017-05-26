@@ -14,6 +14,7 @@
  * 1388
 **/
 #include <vector>
+#include <iostream>
 #define MODNUM 10007
 using namespace std;
 struct node {
@@ -22,27 +23,11 @@ struct node {
     int place;
 };
 typedef vector<node> nodelist;
-#ifndef BILLCHENCHINADEBUGONPC
-#ifdef ONLINE_JUDGE
-#include <iostream>
-#else
-#include <fstream>
-#define cin fin
-#define cout fout
-#endif // ONLINE_JUDGE
-#else
-#include <iostream>
-#endif // BILLCHENCHINADEBUGONPC
+
 
 
 
 int main() {
-#ifndef BILLCHENCHINADEBUGONPC
-#ifndef ONLINE_JUDGE
-    ifstream fin("sum.in");
-    ofstream fout("sum.out");
-#endif // ONLINE_JUDGE
-#endif // BILLCHENCHINADEBUGONPC
 
     int n,m;
     cin>>n>>m;
