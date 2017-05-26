@@ -18,3 +18,4 @@
 那就是个长得不太好看的杨辉三角，那就干吧
 
 附上我的答案[problem.cpp](https://github.com/billchenchina/cppcodes/blob/master/NOIP/problem.cpp)
+其实还差一个问题就是输出优化
