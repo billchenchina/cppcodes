@@ -53,8 +53,6 @@ struct cowRange {
         }
     }
     int getmin(int lrange,int rrange) {
-        //cout<<lrange<<' '<<rrange<<' ';
-        //cout<<this->leftRange<<' '<<this->rightRange<<endl;
         if(lrange==this->leftRange&&rrange==this->rightRange) {
             return this->minInRange;
         } else {
@@ -67,7 +65,7 @@ struct cowRange {
                 int lmin,rmin;
                 lmin=this->lchild->getmin(lrange,mid);
                 rmin=this->rchild->getmin(mid+1,rrange);
-                return lmin>rmin?lmin:rmin;
+                return lmin<rmin?lmin:rmin;
             }
         }
     }
