@@ -1,5 +1,4 @@
 /*
- * Unfinished
  * Sample Input 1:
  * 6 2
  * 5 5 3 2 2 2
