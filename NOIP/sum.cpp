@@ -40,7 +40,7 @@ int main() {
     for(int i=1; i<=n; i++) {
         cin>>ArrayList[i].number;
         ArrayList[i].place=i;
-        sumNtimesN[i]=i*ArrayList[i].number;
+        sumNtimesN[i]=(i%MODNUM)*(ArrayList[i].number%MODNUM)%MODNUM;
     }
     for(int i=1; i<=n; i++) {
         cin>>ArrayList[i].color;

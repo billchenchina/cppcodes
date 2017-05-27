@@ -8,6 +8,7 @@
 
 正经点，这题是个前缀和，先扫一遍，把 color 和奇偶性相同的放到一起再说。
 
-然后，在每组里可以用公式来算[图片] ( 先留个坑，公式以后再补上 )，边算边求模，以防爆 int。然后就很高兴的A了。
+然后，在每组里可以用公式来算[图片] ( 先留个坑，公式以后再补上 )，**边算边求模**，以防爆 int。然后就很高兴的A了。
 
-P.S:大神们帮查查错呗，为啥我还是40分[sum.cpp](https://github.com/billchenchina/cppcodes/blob/master/NOIP/sum.cpp)
+[sum.cpp](https://github.com/billchenchina/cppcodes/blob/master/NOIP/sum.cpp)
+

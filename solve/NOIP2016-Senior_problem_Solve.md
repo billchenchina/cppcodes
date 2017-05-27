@@ -1,4 +1,4 @@
-### NOIP2016提高组D2T1 problem 题解
+# NOIP2016提高组D2T1 problem 题解
 
 ## 题意
 
