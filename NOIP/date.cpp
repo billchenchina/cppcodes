@@ -5,6 +5,7 @@
 #include <string>
 #include <sstream>
 #include <iomanip>
+#include <algorithm>
 using namespace std;
 int monthHas31Days[]= {1,3,5,7,8,10,12};
 int monthHas30Days[]= {4,6,9,11};
@@ -14,46 +15,44 @@ bool isGreatYear(int year) {
     return false;
 }
 struct date {
-    unsigned short year;
-    unsigned short month;
-    unsigned short day;
+    int year;
+    int month;
+    int day;
     bool operator!=(date d){
         if(year==d.year&&month==d.month&&day==d.day)return false;
         return true;
     }
-    date operator+(int noneofuse) {
-        date s=*this;
-        s.day++;
+    date operator++(int z) {
+        this->day++;
         for(int i=0; i<7; i++) {
-            if(s.day==31&&s.month==monthHas31Days[i]) {
-                s.month++;
-                s.day=1;
+            if(this->day==32&&this->month==monthHas31Days[i]) {
+                this->month++;
+                this->day=1;
             }
         }
         for(int i=0; i<4; i++) {
-            if(s.day==30&&s.month==monthHas30Days[i]) {
-                s.month++;
-                s.day=1;
+            if(this->day==31&&this->month==monthHas30Days[i]) {
+                this->month++;
+                this->day=1;
             }
         }
-        if(s.month==2) {
-            if(isGreatYear(s.year)) {
-                if(s.day==30) {
-                    s.month++;
-                    s.day=1;
+        if(this->month==2) {
+            if(isGreatYear(this->year)) {
+                if(this->day==30) {
+                    this->month++;
+                    this->day=1;
                 }
             } else {
-                if(s.day==29) {
-                    s.month++;
-                    s.day=1;
+                if(this->day==29) {
+                    this->month++;
+                    this->day=1;
                 }
             }
         }
-        if(s.month==13) {
-            s.year++;
-            s.month=1;
+        if(this->month==13) {
+            this->year++;
+            this->month=1;
         }
-        return s;
     }
     date(int datenum) {
         this->day=datenum%100;
@@ -77,12 +76,13 @@ int main() {
     int from,to;
     cin>>from>>to;
     date startd(from),endd(to);
-    endd=endd+1;
-    for(;startd!=endd;startd=startd+1){
+    endd++;
+    for(;startd.getdate()!=endd.getdate();startd++){
         string tmp=startd.getdate(),tmp2;
-        tmp.reserve();
+        tmp2=tmp;
+        reverse(tmp.begin(),tmp.end());
         if(tmp2==tmp){
-                rslt++;
+            rslt++;
         }
     }
     cout<<rslt;
