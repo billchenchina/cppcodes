@@ -16,25 +16,30 @@
 
 #define inf INT_MAX
 #define N 17
+#define res result
 using namespace std;
 
-int n,m,r,c,res=inf;
+int n,m,r,c,result=inf;
 
 int p[N][N];
+
 /*
  * v[] is used for DFS()
  * v[0] means the length of the array now
  * v[1...] means the line(s) selected by DFS
  */
 int v[N];
+
 int f[N];
 int t[N];
 int t1[N][N];
 
 inline void init();
-inline int DP();
-inline void DFS(int i, int dep);
 inline void work();
+inline void DFS(int,int);
+inline int DP();
+
+
 
 
 int main() {
@@ -77,16 +82,19 @@ inline void DFS(int i, int dep) {
     }
 }
 
+//DP Here
 inline int DP() {
     memset(t,0,sizeof(t));
     memset(t1,0,sizeof(t1));
-
+    /* 
+     * t[i] stands for in Column i,the total grade
+     */
     for(int i=1; i<=m; i++) {
         for(int j=1; j<v[0]; j++) {
             t[i]+=abs(p[v[j]][i]-p[v[j+1]][i]);
         }
     }
-
+    //TODO Comment here
     for(int i=1; i<m; i++) {
         for(int j=i+1; j<=m; j++) {
             for(int k=1; k<=v[0]; k++) {
