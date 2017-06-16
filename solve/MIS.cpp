@@ -1,3 +1,7 @@
+/*
+ * This program aims to solve the MIS Problem
+ * MIS : Maximum Interval Sum
+ */
 
 #include <iostream>
 #include <vector>
