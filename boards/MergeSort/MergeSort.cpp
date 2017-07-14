@@ -2,6 +2,8 @@
 #include <vector>
 using namespace std;
 
+// 10
+// 8 4 1 8 48 787 41 51 156 6
 template <typename T>
 vector<T> Merge(vector<T>v1,vector<T>v2)
 {
