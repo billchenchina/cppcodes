@@ -54,21 +54,9 @@ void output(vector<T>v){
         cout<<*iter<<' ';
     }
 }
-void test(){
-    vector<int>a,b;
-
-    a.push_back(0);
-    a.push_back(1);
-    a.push_back(2);
-    a.push_back(3);
-
-
-    output(MergeSort(a));
-}
 
 
 int main(){
-    //test();
     vector<int>v;
     int vsize;
     cin>>vsize;
