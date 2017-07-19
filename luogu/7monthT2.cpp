@@ -49,21 +49,21 @@ inline void go() {
         //膜法跳跃
         if(fatherNode.usedMagic==false) {
             int tmpy=y+R,tmpx=x+D;
-            cout<<endl;
-            cout<<y<<' '<<x<<endl;
-            cout<<tmpy<<' '<<tmpx<<endl;
+            //cout<<endl;
+            //cout<<y<<' '<<x<<endl;
+            //cout<<tmpy<<' '<<tmpx<<endl;
             if(tmpy>0&&tmpy<=W&&tmpx>0&&tmpx<=H) {
                 node &tmpnode=mapn[tmpx][tmpy];
                 if(tmpnode.status==0) {
                     if(tmpy==W&&tmpx==H) {
-                        cout<<fatherNode.minnRoute+1;
+                        //cout<<fatherNode.minnRoute+1;
                         return;
                     }
                     tmpnode.minnRoute=fatherNode.minnRoute+1;
                     tmpnode.status=1;
                     tmpnode.usedMagic=1;
                     q.push(&tmpnode);
-                    cout<<"Jumped From ("<<fatherNode.ln<<","<< fatherNode.col<<") to ("<<tmpnode.ln <<","<< tmpnode.col<<")"<<endl;
+                    //cout<<"Jumped From ("<<fatherNode.ln<<","<< fatherNode.col<<") to ("<<tmpnode.ln <<","<< tmpnode.col<<")"<<endl;
                 }
             }
 
@@ -75,7 +75,6 @@ inline void go() {
 
 }
 int main() {
-    freopen("2.in","r",stdin);
     cin>>H>>W>>D>>R;
     cin.get();
     for(int i=1; i<=H; i++) {
