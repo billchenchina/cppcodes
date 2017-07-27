@@ -1,3 +1,10 @@
+/*
+ * Accepted
+ * Time: 20ms
+ * Memory: 2580kb
+ **/
+
+
 #include <bits/stdc++.h>
 
 #define YES "YES\n"
