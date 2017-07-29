@@ -28,3 +28,8 @@ Common Online Judge sites are below.<br/><hr/>
 [HlJSSYZXOJ](http://hljssyzx.openjudge.cn/)
 
 [HSDFZ](http://61.180.148.52:1001/oj/)
+
+
+Useful Sites:
+
+[PKU SummerSchool](http://acm.pku.edu.cn/summerschool/pku_acm_train.htm)
