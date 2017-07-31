@@ -51,9 +51,9 @@ void process2(int M[MAXN][LOGMAXN], int A[MAXN], int N) {
 ```
 ### 参数
 
-int **M: 二维数组，用于接收返回结果。其中第一维为从 i 个数字开始，第二维为表示 [i,i+2^j]的区间。
+int \*\*M: 二维数组，用于接收返回结果。其中第一维为从 i 个数字开始，第二维为表示 [i,i+2^j]的区间。
 
-int *A: 一位数组，为原数组。
+int \*A: 一位数组，为原数组。
 
 int N: A的长度
 
@@ -71,4 +71,6 @@ int N: A的长度
  >
  > 在 OpenJudge上的 [这道题](http://hljssyzx.openjudge.cn/bitseg/1002/)（如链接不可用，百度搜全局题号2439）线段树可过，POJ 却过不了
  >
- > 几乎就是模板题？
+ > 几乎就是模板题？（大雾
+
+##
