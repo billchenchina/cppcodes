@@ -30,6 +30,14 @@ Common Online Judge sites are below.<br/><hr/>
 [HSDFZ](http://61.180.148.52:1001/oj/)
 
 
-Useful Sites:
+## Useful Sites:
 
 [PKU SummerSchool](http://acm.pku.edu.cn/summerschool/pku_acm_train.htm)
+
+
+## Blogs:
+
+[Ferric](https://ferric.cf/)
+
+[PoPoQQQ](http://blog.csdn.net/popoqqq/)
+
