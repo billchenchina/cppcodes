@@ -157,3 +157,5 @@ public:
 1.[数据结构之伸展树 作者:Dong](http://dongxicheng.org/structure/splay-tree/)（使用[CC BY 2.5 CN](https://creativecommons.org/licenses/by/2.5/cn/)发布）
 
 2.伸展树的基本操作与应用-IOI2004 国家集训队论文 杨思雨
+
+3.[Splay Tree - NOCOW](http://www.nocow.cn/index.php/Splay_Tree)
