@@ -2,7 +2,7 @@
 #include <iostream>
 #include <vector>
 
-// checker of "¼ÒÆ×Ê÷"
+// checker of å®¶è°±æ ‘
 int main(int argc,char *argv[])
 {
     setName("Test the answer");
