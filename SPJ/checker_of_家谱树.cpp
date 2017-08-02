@@ -2,11 +2,7 @@
 #include <iostream>
 #include <vector>
 
-<<<<<<< HEAD
-// checker of "¼ÒÆ×Ê÷"
-=======
-// checker of å®¶è°±æ ‘
->>>>>>> remotes/origin/master
+
 int main(int argc,char *argv[])
 {
     setName("Test the answer");
