@@ -22,7 +22,7 @@ ST 算法适用于解决 RMQ 问题，是一个较长时间预处理，（时间
 
 如图
 
-![graph.png](https://raw.githubusercontent.com/billchenchina/cppcodes/master/solve/RMQ%20Problem/graph.png)
+![graph.png](./RMQ%20Problem/graph.png)
 
 (Thanks to [Ferric](https://ferric.cf) and Graphviz)
 
