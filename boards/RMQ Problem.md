@@ -22,7 +22,7 @@ ST 算法适用于解决 RMQ 问题，是一个较长时间预处理，（时间
 
 如图
 
-![graph.png](https://raw.githubusercontent.com/billchenchina/cppcodes/master/solve/RMQ%20Problem/graph.png)
+![graph.png](./RMQ%20Problem/graph.png)
 
 (Thanks to [Ferric](https://ferric.cf) and Graphviz)
 
@@ -72,5 +72,3 @@ int N: A的长度
  > 在 OpenJudge上的 [这道题](http://hljssyzx.openjudge.cn/bitseg/1002/)（如链接不可用，百度搜全局题号2439）线段树可过，POJ 却过不了
  >
  > 几乎就是模板题？（大雾
-
-##

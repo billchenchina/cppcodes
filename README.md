@@ -39,5 +39,8 @@ Common Online Judge sites are below.<br/><hr/>
 
 [Ferric](https://ferric.cf/)
 
+[HeRaNO](http://blog.csdn.net/herano)
+
 [PoPoQQQ](http://blog.csdn.net/popoqqq/)
 
+[LZJ209](http://blog.csdn.net/lzj209)

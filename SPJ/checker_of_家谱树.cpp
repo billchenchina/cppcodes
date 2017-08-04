@@ -2,7 +2,6 @@
 #include <iostream>
 #include <vector>
 
-// checker of "¼ÒÆ×Ê÷"
 int main(int argc,char *argv[])
 {
     setName("Test the answer");
@@ -26,15 +25,9 @@ int main(int argc,char *argv[])
             } else break;
         }
     }
-
-
     if(correct) {
         quitf(_ok, "The answer is correct.");
     } else {
         quitf(_wa, "The answer is wrong");
     }
 }
-
-
-
-
