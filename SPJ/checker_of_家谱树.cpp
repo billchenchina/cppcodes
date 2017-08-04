@@ -30,6 +30,7 @@ int main(int argc,char *argv[])
             } else break;
         }
     }
+    if(answer_set==output_set)correct=false;
     if(correct) {
         quitf(_ok, "The answer is correct.");
     } else {
