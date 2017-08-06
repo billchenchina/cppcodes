@@ -32,6 +32,7 @@ void Merge(int l,int mid,int r)
     int l_p=l,r_p=mid;
     int tmp_p=0;
     while(l_p!=mid&&r_p!=r){
+        // condition according to the problem
         if(v[l_p]<=v[r_p]){
             tmp[tmp_p++]=v[l_p++];
         }else{

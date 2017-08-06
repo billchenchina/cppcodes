@@ -10,6 +10,7 @@ vector<T> Merge(vector<T>v1,vector<T>v2,int &NIXUnumber)
     typename vector<T>::iterator v1iter=v1.begin(),v2iter=v2.begin();
     vector<T> ansArr;
     while(v1iter!=v1.end()&&v2iter!=v2.end()){
+        // condition according to the problem
         if(*v1iter<*v2iter){
             ansArr.push_back(*v1iter);
             v1iter++;
