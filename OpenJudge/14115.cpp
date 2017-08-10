@@ -1,3 +1,14 @@
+/**
+ * Attention, please.
+ * The problem on [hljssyzxOJ](http://hljssyzx.openjudge.cn/sjjg/tp01/)
+ * don't have a special judge.
+ * please join [Luogu/hljssyzx](https://www.luogu.org/team/show?teamid=3558)
+ * and judge your problem there
+ * special judge by billchenchina
+ *
+ *
+ **/
+
 #include <cstdio>
 #include <iostream>
 #include <queue>
