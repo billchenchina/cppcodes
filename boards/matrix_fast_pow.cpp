@@ -15,9 +15,9 @@ struct matrix
     matrix(const vector<vector<long long> > &_v)
     {
         v.resize(n,vector<long long>(n,0));
-        for(long long i=0;i<n;++i)
+        for(long long i=0; i<n; ++i)
         {
-            for(long long j=0;j<n;++j)
+            for(long long j=0; j<n; ++j)
             {
                 v[i][j]=_v[i][j];
             }
@@ -46,9 +46,9 @@ struct matrix
     }
     void output()
     {
-        for(long long i=0;i<n;++i)
+        for(long long i=0; i<n; ++i)
         {
-            for(long long j=0;j<n;++j)
+            for(long long j=0; j<n; ++j)
             {
                 cout<<v[i][j]<<' ';
             }
@@ -57,31 +57,31 @@ struct matrix
     }
     void input()
     {
-        for(long long i=0;i<n;++i)
+        for(long long i=0; i<n; ++i)
         {
-            for(long long j=0;j<n;++j)
+            for(long long j=0; j<n; ++j)
             {
                 cin>>v[i][j];
             }
         }
     }
+    static matrix power(matrix m,long long a)
+    {
+        if(a==1)
+        {
+            return m;
+        }
+        matrix m2=power(m,a/2);
+        m2=m2*m2;
+        if(a&1)
+        {
+            m2=m2*m;
+        }
+        return m2;
+    }
 
 };
 
-matrix power(matrix m,long long a)
-{
-    if(a==1)
-    {
-        return m;
-    }
-    matrix m2=power(m,a/2);
-    m2=m2*m2;
-    if(a&1)
-    {
-        m2=m2*m;
-    }
-    return m2;
-}
 
 // See the struct matrix mainly
 // Codes below are solution of Luogu P3390
@@ -101,6 +101,6 @@ int main()
         }
     }
     matrix jz1(v);
-    jz1=power(jz1,k);
+    jz1=matrix::power(jz1,k);
     jz1.output();
 }
