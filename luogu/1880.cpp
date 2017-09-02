@@ -1,11 +1,12 @@
 // Now RE
 // Leave it unfinished
-
+// Abandoned
+// see 1880_2.cpp
 #include <bits/stdc++.h>
 
 using namespace std;
 
-vector<vector<int> >dp_map1(105,vector<int>(105+1,0));
+vector<vector<int> >dp_map1(105,vector<int>(105,0));
 vector<int>prefix_amount(2*105);
 int main()
 {
@@ -27,7 +28,14 @@ int main()
         int ttlrange=2;
         for(int j=0; j<N; ++j)
         {
-            dp_map1[j][ttlrange]=prefix_amount[j+1]-prefix_amount[j-1];
+            if(j==0)
+            {
+                dp_map1[j][ttlrange]=prefix_amount[j+1];
+            }
+            else
+            {
+                dp_map1[j][ttlrange]=prefix_amount[j+1]-prefix_amount[j-1];
+            }
         }
     }
 
@@ -38,12 +46,15 @@ int main()
             int minn=INT_MAX;
             for(int firstrange=1; firstrange<=ttlrange; ++firstrange)
             {
-                if(minn>dp_map1[start][firstrange]+dp_map1[start+firstrange][ttlrange-firstrange])
+                if(minn>dp_map1[start][firstrange]+dp_map1[(start+firstrange)%N][ttlrange-firstrange]+(start==0?prefix_amount[ttlrange-1]:prefix_amount[ttlrange-1]-prefix_amount[start]))
                 {
-                    minn=dp_map1[start][firstrange]+dp_map1[start+firstrange][ttlrange-firstrange];
+                    minn=dp_map1[start][firstrange]+dp_map1[(start+firstrange)%N][ttlrange-firstrange]+(start==0?prefix_amount[ttlrange-1]:prefix_amount[ttlrange-1]-prefix_amount[start]);
                 }
             }
-            dp_map1[start][ttlrange]=minn+prefix_amount[start+ttlrange]-prefix_amount[start-1];
+
+
+            cout<<start<<' '<<start+ttlrange-1<<' '<<minn<<endl;
+            dp_map1[start][ttlrange]=minn+prefix_amount[start+ttlrange-1]-prefix_amount[start-1];
         }
     }
     int minn=INT_MAX;
@@ -52,4 +63,3 @@ int main()
         cout<<dp_map1[i][N]<<' ';
     }
 }
-
