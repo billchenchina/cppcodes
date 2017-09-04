@@ -1,100 +1,110 @@
 #include <bits/stdc++.h>
+#define DEBUG     for(int i=1;i<=n;++i)\
+    {\
+        cout<<root->query(i,i)<<' ';\
+    }\
+    cout<<endl;
 
 using namespace std;
 
-struct node {
-    int value;
-    int totaladd;
-    node *lchild;
-    node *rchild;
+struct node
+{
+    node* lnode;
+    node* rnode;
     int l_range;
     int r_range;
-    int mid;
-    node(int l,int r) {
-        totaladd=0;
+    int value;
+    node(int _l,int _r)
+    {
+        l_range=_l;
+        r_range=_r;
         value=0;
-        if(l==r) {
-            lchild=rchild=NULL;
-            mid=l_range=r_range=l;
+        if(_l==_r)
+        {
+            lnode=rnode=NULL;
+        }
+        else
+        {
+            int mid=_l+(_r-_l)/2;
+            lnode=new node(_l,mid);
+            rnode=new node(mid+1,_r);
+        }
+    }
+    void add_value(int _l,int _r,int _val)
+    {
+        int mid=l_range+(r_range-l_range)/2;
+        if(_l==l_range&&_r==r_range)
+        {
+            this->value+=_val;
+        }
+        else if(_l<=mid&&_r>=mid+1)
+        {
+            this->lnode->add_value(_l,mid,_val);
+            this->rnode->add_value(mid+1,_r,_val);
+        }
+        else if(_r<=mid)
+        {
+            this->lnode->add_value(_l,_r,_val);
 
-            return;
         }
-        mid=l+(r-l)/2;
-        lchild=new node(l,mid);
-        rchild=new node(mid+1,r);
-        l_range=l;
-        r_range=r;
-    }
-    void addValue(int l,int r,int val) {
-        if(l==r) {
-            value+=val;
-            return;
-        } else {
-            if(l==l_range&&r==r_range) {
-                totaladd+=val;
-            }
-            // 算啦算啦 再给 node 类价格成员变量 mid 吧。。。
-            // 只是比较好写 233333
-            // 看起来没有问题？
-            // （还是只是错觉？
-            // 突然想起来个事 OI 最大错觉其实是自己的答案过了样例
-            else if(r<=mid) {
-                this->lchild->addValue(l,r,val);
-            } else if(l>=mid+1) {
-                this->rchild->addValue(l,r,val);
-            } else {
-                this->lchild->addValue(l,mid,val);
-                this->rchild->addValue(mid+1,r,val);
-            }
+        else if(_l>=mid+1)
+        {
+            this->rnode->add_value(_l,_r,_val);
         }
     }
-    /*
-        err...刚才看到的那个没有开的直播间是我们同学 同学习信息竞赛...
-        昨天就是他惨遭电脑锁屏杀...开着直播呢...人出去吃饭了 结果 hhh
-    */
-    int query(int l,int r) {
-        int add=totaladd;
-        totaladd=0;
-        this->lchild->addValue(l,mid,add);
-        this->rchild->addValue(mid+1,r,add);
-        if(l==l_range&&r==r_range) {
-            return this->lchild->query(l,mid)+this->rchild->query(mid+1,r);
-        } else if(r<=mid) {
-            return this->lchild->query(l,r);
-        } else if(l>=mid+1) {
-            return this->rchild->query(l,r);
-        } else {
-            return this->lchild->query(l,mid)+this->rchild->query(mid+1,r);
+    int query(int _l,int _r)
+    {
+        int ans=(_r-_l+1)*value;
+        int mid=l_range+(r_range-l_range)/2;
+        if(l_range==r_range)
+        {
+            return ans;
         }
+        if(_l>=mid+1)
+        {
+            ans+=this->rnode->query(_l,_r);
+        }
+        else if(_r<=mid)
+        {
+            ans+=this->lnode->query(_l,_r);
+        }
+        else
+        {
+            ans+=this->lnode->query(_l,mid);
+            ans+=this->rnode->query(mid+1,_r);
+        }
+        return ans;
     }
-
 };
 
 
-
-int main() {
-    int N,M;
-    cin>>N>>M;
-    node *root=new node(1,N); //构造函数手残打错23333
-    for(int i=1; i<=N; i++) {
-        int tmp;
-        cin>>tmp;
-        root->addValue(i,i,tmp);
+int main()
+{
+    int n,m;
+    cin>>n>>m;
+    node *root=new node(1,n);
+    for(int i=1;i<=n;++i)
+    {
+        int val;
+        cin>>val;
+        root->add_value(i,i,val);
     }
-    // opps...
-    while(M--) {
+
+    while(m--)
+    {
         int opt;
-        int l_range;
-        int r_range;
-        cin>>opt>>l_range>>r_range;
-        if(opt==1) {
-            int k;
-            cin>>k;
-            root->addValue(l_range,r_range,k);
-        } else {
-            cout<<root->query(l_range,r_range)<<endl;
+        cin>>opt;
+        if(opt==1)
+        {
+            int x,y,k;
+            cin>>x>>y>>k;
+            root->add_value(x,y,k);
+        }
+        else if(opt==2)
+        {
+            int x,y;
+            cin>>x>>y;
+            cout<<root->query(x,y)<<endl;
         }
     }
-    return 0;
-
 }
