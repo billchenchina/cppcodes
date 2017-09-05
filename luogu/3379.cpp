@@ -1,21 +1,20 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-
+#define maxn 1000001
 
 
 int N,M,root;
-vector<int>mapn[500001];
+vector<int>mapn[maxn];
 
 vector<int>dfs_list;
 
-int dfn[500001];
-bool vis[500001];
-int first_pos[500001];
-int last_pos[500001];
+int dfn[maxn];
+bool vis[maxn];
+int first_pos[maxn];
 int defaultdfn=1;
-int _M[500001][21];
-int another_dfn[500001];
+int _M[maxn][21];
+int another_dfn[maxn];
 void process();
 void process2();
 int getmin(int a,int b);
@@ -69,7 +68,6 @@ void dfs(int i)
             dfs_list.push_back(dfn[i]);
         }
     }
-    last_pos[dfn[i]]=dfs_list.size()-1;
 }
 
 void process2()
@@ -82,7 +80,7 @@ void process2()
     {
         swap(x,y);
     }
-    x=first_pos[x];y=last_pos[y];
+    x=first_pos[x];y=first_pos[y];
 
     cout<<another_dfn[getmin(x,y)]<<endl;
 }
@@ -115,6 +113,3 @@ void process() {
             else
                 _M[i][j] = _M[i + (1 << (j - 1))][j - 1];
 }
-
-
-
