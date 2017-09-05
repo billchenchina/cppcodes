@@ -3,19 +3,12 @@ using namespace std;
 
 #define maxn 1000001
 
-struct edge
-{
-    int to;
-    int next;
-};
-edge edges[maxn];
-int edges_size=0;
-int first[maxn];
 
 int N,M,root;
+vector<int>mapn[maxn];
 
-int dfs_list[maxn];
-int dfs_list_size=0;
+vector<int>dfs_list;
+
 int dfn[maxn];
 bool vis[maxn];
 int first_pos[maxn];
@@ -36,10 +29,9 @@ int read()
     return x*f;
 }
 
+
 int main()
 {
-    ios::sync_with_stdio(false);
-    memset(first,-1,sizeof first);
     N=read();M=read();root=read();
     //cin>>N>>M>>root;
     for(int i=0; i<N-1; ++i)
@@ -62,12 +54,8 @@ void connect()
     int x,y;
     x=read();y=read();
     //cin>>x>>y;
-    edges[edges_size].to=y;
-    edges[edges_size].next=first[x];
-    first[x]=edges_size++;
-    edges[edges_size].to=x;
-    edges[edges_size].next=first[y];
-    first[y]=edges_size++;
+    mapn[x].push_back(y);
+    mapn[y].push_back(x);
 }
 
 
@@ -75,17 +63,18 @@ void connect()
 void dfs(int i)
 {
     vis[i]=1;
+    int vsize=mapn[i].size();
     dfn[i]=defaultdfn++;
     another_dfn[dfn[i]]=i;
-    dfs_list[dfs_list_size++]=dfn[i];
-    first_pos[dfn[i]]=dfs_list_size-1;
-    for(int j=first[i]; j!=-1; j=edges[j].next)
+    dfs_list.push_back(dfn[i]);
+    first_pos[dfn[i]]=dfs_list.size()-1;
+    for(int j=0; j<vsize; ++j)
     {
-        int nextp=edges[j].to;
+        int nextp=mapn[i][j];
         if(!vis[nextp])
         {
             dfs(nextp);
-            dfs_list[dfs_list_size++]=dfn[i];
+            dfs_list.push_back(dfn[i]);
         }
     }
 }
@@ -93,8 +82,8 @@ void dfs(int i)
 void process2()
 {
     int x,y;
-    //cin>>x>>y;
     x=read();y=read();
+    //cin>>x>>y;
     x=dfn[x];
     y=dfn[y];
     if(x>y)
@@ -122,8 +111,8 @@ int getmin(int a,int b)
 }
 
 void process() {
-    int *A=dfs_list;
-    int N=dfs_list_size;
+    vector<int>&A=dfs_list;
+    int N=A.size();
     int i, j;
     for (i = 0; i < N; i++)
         _M[i][0] = i;
