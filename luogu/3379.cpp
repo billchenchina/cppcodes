@@ -22,12 +22,12 @@ int first_pos[maxn];
 int defaultdfn=1;
 int _M[maxn][21];
 int another_dfn[maxn];
+void preprocess();
 void process();
-void process2();
 int getmin(int a,int b);
 void connect();
 void dfs(int i);
-
+// ¿ìËÙ¶ÁÈë
 int read()
 {
     int x=0,f=1;char c=getchar();
@@ -38,7 +38,6 @@ int read()
 
 int main()
 {
-    ios::sync_with_stdio(false);
     memset(first,-1,sizeof first);
     N=read();M=read();root=read();
     //cin>>N>>M>>root;
@@ -48,10 +47,10 @@ int main()
     }
     dfs(root);
 
-    process();
+    preprocess();
     for(int i=0; i<M; ++i)
     {
-        process2();
+        process();
     }
 }
 
@@ -90,7 +89,7 @@ void dfs(int i)
     }
 }
 
-void process2()
+void process()
 {
     int x,y;
     //cin>>x>>y;
@@ -112,7 +111,7 @@ int getmin(int a,int b)
     if((b-a+1)&(b-a))
     {
         int min1=dfs_list[_M[a][k]];
-        int min2=dfs_list[_M[b-(1<<(k))][k]];
+        int min2=dfs_list[_M[b+1-(1<<(k))][k]];
         return min1<min2?min1:min2;
     }
     else
@@ -121,7 +120,7 @@ int getmin(int a,int b)
     }
 }
 
-void process() {
+void preprocess() {
     int *A=dfs_list;
     int N=dfs_list_size;
     int i, j;

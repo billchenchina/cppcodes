@@ -101,7 +101,7 @@ int getmin(int a,int b)
     if((b-a+1)&(b-a))
     {
         int min1=dfs_list[_M[a][k]];
-        int min2=dfs_list[_M[b-(1<<(k))][k]];
+        int min2=dfs_list[_M[b+1-(1<<(k))][k]];
         return min1<min2?min1:min2;
     }
     else
