@@ -1,110 +1,161 @@
 #include <bits/stdc++.h>
-#define DEBUG     for(int i=1;i<=n;++i)\
-    {\
-        cout<<root->query(i,i)<<' ';\
-    }\
-    cout<<endl;
 
 using namespace std;
+#define MAXN 100001
+long long n;
+long long arr[MAXN];
+inline void read(long long &x){
+    /*
+    x=0;
+    int flag=1;
+    char c=getchar();
+    while(c<'0' || c>'9'){
+        if(c=='-')flag=-1;
+        c=getchar();
+    }
+    while(c>='0' && c<='9'){
+        x=x*10+c-'0';
+        c=getchar();
+    }
+    x*=flag;
+    */
+    scanf("%lld",&x);
+}
 
 struct node
 {
-    node* lnode;
-    node* rnode;
-    int l_range;
-    int r_range;
-    int value;
-    node(int _l,int _r)
-    {
-        l_range=_l;
-        r_range=_r;
-        value=0;
-        if(_l==_r)
-        {
-            lnode=rnode=NULL;
-        }
-        else
-        {
-            int mid=_l+(_r-_l)/2;
-            lnode=new node(_l,mid);
-            rnode=new node(mid+1,_r);
-        }
-    }
-    void add_value(int _l,int _r,int _val)
-    {
-        int mid=l_range+(r_range-l_range)/2;
-        if(_l==l_range&&_r==r_range)
-        {
-            this->value+=_val;
-        }
-        else if(_l<=mid&&_r>=mid+1)
-        {
-            this->lnode->add_value(_l,mid,_val);
-            this->rnode->add_value(mid+1,_r,_val);
-        }
-        else if(_r<=mid)
-        {
-            this->lnode->add_value(_l,_r,_val);
-
-        }
-        else if(_l>=mid+1)
-        {
-            this->rnode->add_value(_l,_r,_val);
-        }
-    }
-    int query(int _l,int _r)
-    {
-        int ans=(_r-_l+1)*value;
-        int mid=l_range+(r_range-l_range)/2;
-        if(l_range==r_range)
-        {
-            return ans;
-        }
-        if(_l>=mid+1)
-        {
-            ans+=this->rnode->query(_l,_r);
-        }
-        else if(_r<=mid)
-        {
-            ans+=this->lnode->query(_l,_r);
-        }
-        else
-        {
-            ans+=this->lnode->query(_l,mid);
-            ans+=this->rnode->query(mid+1,_r);
-        }
-        return ans;
-    }
+    long long l_range;
+    long long r_range;
+    long long value;
+    long long mid;
+    static void init(long long);
+    static void addValue(long long,long long,long long,long long);
+    static long long getValue(long long,long long,long long);
 };
 
+node nodes[4*MAXN];
+
+
+void node::init(long long o=1)
+{
+    //cout<<o<<' ';
+    if(o==1)
+    {
+        nodes[o].l_range=1;
+        nodes[o].r_range=n;
+        nodes[o].mid=1+(n-1)/2;
+        init(o<<1);
+        init((o<<1)+1);
+        nodes[o].value=nodes[o<<1].value+nodes[1+(o<<1)].value;
+    }
+    else
+    {
+        long long fa=o>>1;
+        if(o&1)
+        {
+            nodes[o].l_range=nodes[fa].mid+1;
+            nodes[o].r_range=nodes[fa].r_range;
+        }
+        else
+        {
+            nodes[o].l_range=nodes[fa].l_range;
+            nodes[o].r_range=nodes[fa].mid;
+        }
+        nodes[o].value=0;
+        nodes[o].mid=nodes[o].l_range+(nodes[o].r_range-nodes[o].l_range)/2;
+        if(nodes[o].l_range==nodes[o].r_range)
+        {
+            nodes[o].value=arr[nodes[o].l_range];
+            return;
+        }
+        else
+        {
+            init(o<<1);
+            init((o<<1)+1);
+            nodes[o].value=nodes[o<<1].value+nodes[1+(o<<1)].value;
+        }
+    }
+}
+
+void node::addValue(long long l,long long r,long long val,long long o=1)
+{
+    if(nodes[o].l_range==nodes[o].r_range)
+    {
+        nodes[o].value+=val;
+        return;
+    }
+    else
+    {
+        if(nodes[o].mid>=r)
+        {
+            addValue(l,r,val,o<<1);
+            nodes[o].value+=val*(r-l+1);
+        }
+        else if(nodes[o].mid+1<=l)
+        {
+            addValue(l,r,val,1+(o<<1));
+            nodes[o].value+=val*(r-l+1);
+        }
+        else
+        {
+            addValue(l,nodes[o].mid,val,o<<1);
+            addValue(nodes[o].mid+1,r,val,(o<<1)+1);
+            nodes[o].value+=val*(r-l+1);
+        }
+    }
+}
+long long node::getValue(long long l,long long r,long long o=1)
+{
+    if(nodes[o].l_range==l&&nodes[o].r_range==r)
+    {
+        return nodes[o].value;
+    }
+    else if(r<=nodes[o].mid)
+    {
+        return getValue(l,r,o<<1);
+    }
+    else if(l>=nodes[o].mid+1)
+    {
+        return getValue(l,r,(o<<1)+1);
+    }
+    else
+    {
+        return getValue(l,nodes[o].mid,o<<1)
+            +getValue(nodes[o].mid+1,r,1+(o<<1));
+    }
+}
 
 int main()
 {
-    int n,m;
-    cin>>n>>m;
-    node *root=new node(1,n);
-    for(int i=1;i<=n;++i)
+    long long m;
+    read(n);read(m);
+    //cin>>n>>m;
+    //cout<<endl;
+    for(long long i=1; i<=n; ++i)
     {
-        int val;
-        cin>>val;
-        root->add_value(i,i,val);
+        read(arr[i]);
+        //cin>>val;
     }
-
+    node::init();
     while(m--)
     {
-        int opt;
-        cin>>opt;
+        long long opt;
+        read(opt);
+        //cin>>opt;
         if(opt==1)
         {
-            int x,y,k;
-            cin>>x>>y>>k;
-            root->add_value(x,y,k);
+            long long x,y,k;
+            read(x);read(y);read(k);
+            //cin>>x>>y>>k;
+            node::addValue(x,y,k);
         }
         else if(opt==2)
         {
-            int x,y;
-            cin>>x>>y;
-            cout<<root->query(x,y)<<endl;
+            long long x,y;
+            read(x);read(y);
+            //cin>>x>>y;
+            printf("%ld\n",node::getValue(x,y));
+            //cout<<node::getValue(x,y)<<endl;
         }
     }
 }
