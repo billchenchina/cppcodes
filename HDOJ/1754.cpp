@@ -20,6 +20,7 @@ signed main()
 
     while(~scanf("%lld%lld",&N,&M))
     {
+
         for(long long i=0;i<N;++i)
         {
             scanf("%lld",&arr[1+i]);
@@ -52,6 +53,7 @@ void node::init(long long o)
         nodes[o].r_range=N;
         init(o<<1);
         init((o<<1)+1);
+        nodes[o].maxn=max(nodes[o<<1].maxn,nodes[1+(o<<1)].maxn);
     }
     else
     {
