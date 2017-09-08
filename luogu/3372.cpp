@@ -4,23 +4,6 @@ using namespace std;
 #define MAXN 100001
 long long n;
 long long arr[MAXN];
-inline void read(long long &x){
-    /*
-    x=0;
-    int flag=1;
-    char c=getchar();
-    while(c<'0' || c>'9'){
-        if(c=='-')flag=-1;
-        c=getchar();
-    }
-    while(c>='0' && c<='9'){
-        x=x*10+c-'0';
-        c=getchar();
-    }
-    x*=flag;
-    */
-    scanf("%lld",&x);
-}
 
 struct node
 {
@@ -38,7 +21,6 @@ node nodes[4*MAXN];
 
 void node::init(long long o=1)
 {
-    //cout<<o<<' ';
     if(o==1)
     {
         nodes[o].l_range=1;
@@ -127,34 +109,35 @@ long long node::getValue(long long l,long long r,long long o=1)
 
 int main()
 {
+    ios::sync_with_stdio(false);
     long long m;
-    read(n);read(m);
+    cin>>n>>m;
     //cin>>n>>m;
     //cout<<endl;
     for(long long i=1; i<=n; ++i)
     {
-        read(arr[i]);
+        cin>>arr[i];
         //cin>>val;
     }
     node::init();
     while(m--)
     {
         long long opt;
-        read(opt);
+        cin>>opt;
         //cin>>opt;
         if(opt==1)
         {
             long long x,y,k;
-            read(x);read(y);read(k);
+            cin>>x>>y>>k;
             //cin>>x>>y>>k;
             node::addValue(x,y,k);
         }
         else if(opt==2)
         {
             long long x,y;
-            read(x);read(y);
+            cin>>x>>y;
             //cin>>x>>y;
-            printf("%ld\n",node::getValue(x,y));
+            cout<<node::getValue(x,y)<<endl;
             //cout<<node::getValue(x,y)<<endl;
         }
     }

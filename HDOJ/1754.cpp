@@ -15,31 +15,32 @@ struct node
 long long N,M;
 long long arr[MAXN];
 
-signed main()
+int main()
 {
-
-    while(~scanf("%lld%lld",&N,&M))
+    ios::sync_with_stdio(false);
+    while(cin>>N>>M)
     {
-
         for(long long i=0;i<N;++i)
         {
-            scanf("%lld",&arr[1+i]);
+            cin>>arr[i+1];
         }
         node::init();
+        //cout<<"Data received"<<endl;
         for(long long i=0;i<M;++i)
         {
+            //cout<<"Function #"<<i<<' ';
             char option;
-            scanf("%c",&option);
+            cin>>option;
             if(option=='Q')
             {
                 long long l,r;
-                scanf("%lld%lld",&l,&r);
-                printf("%lld\n",node::getMaxn(l,r));
+                cin>>l>>r;
+                cout<<node::getMaxn(l,r)<<endl;
             }
             else
             {
                 long long place,value;
-                scanf("%lld%lld",&place,&value);
+                cin>>place>>value;
                 node::changeValue(place,value);
             }
         }
