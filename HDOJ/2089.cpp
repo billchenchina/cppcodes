@@ -32,9 +32,13 @@ inline int amount(int x)
             dp_map[len-1][i][0]=1;
             //<<"dp_map["<<len-1<<"]["<<i<<"]="<<1<<endl;
         }
-        if(i==str[len-1]-'0')
+        if(i==str[len-1]-'0'&&i!=4)
         {
             dp_map[len-1][i][1]=1;
+        }
+        else
+        {
+            dp_map[len-1][i][1]=0;
         }
     }
     for(int i=len-2; i>=1; --i)
@@ -129,12 +133,11 @@ inline int amount(int x)
 int main()
 {
     int n,m;
-    while(cin>>n)
+
+    while(cin>>n>>m)
     {
-        cout<<amount(n)<<endl;
+        if(n==0&&m==0)break;
+        cout<<amount(m)-amount(n-1)<<endl;
     }
-    while(true)
-    {cin>>n>>m;
-    if(n==0&&m==0)break;
-    cout<<amount(m)-amount(n-1)<<endl;}
+
 }
