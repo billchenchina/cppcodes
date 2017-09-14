@@ -67,7 +67,22 @@ inline int amount(int x)
     {
         for(int j=0; j<=str[i]-'0'; ++j)
         {
-            if(j==str[i]-'0')
+            if(j==str[i]-'0'&&j==4)
+            {
+                dp_map[i][j][1]=0;
+            }
+            else if(j==str[i]-'0'&&j==6)
+            {
+                for(int k=0; k<=str[i+1]-'0'; ++k)
+                {
+                if(k==2)
+                {
+                  continue;
+                }
+                    dp_map[i][j][1]+=dp_map[i+1][k][1];
+                }
+            }
+            else if(j==str[i]-'0')
             {
                 for(int k=0; k<=str[i+1]-'0'; ++k)
                 {
@@ -80,6 +95,7 @@ inline int amount(int x)
             }
         }
     }
+
     int ans=0;
     for(int i=0; i<=maxn; ++i)
     {
@@ -97,7 +113,8 @@ int main()
 
     while(cin>>n>>m)
     {
-        if(n==0&&m==0)break;
+    if(n==0&&m==0)
+    {break;}
         cout<<amount(m)-amount(n-1)<<endl;
     }
 
