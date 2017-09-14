@@ -48,6 +48,7 @@ int solve(int num)
                 dp2[i]+=dp_map[i-1][j];
             }
     }
+    }
     cout<<dp_map[1][0]<<endl;
     int ans=0;
     for(int i=0;i<digit[len-1];++i)
@@ -56,13 +57,11 @@ int solve(int num)
     }
     ans+=dp2[len-1];
     return ans;
-
-}
 }
 
 int main()
 {
     int A,B;
     scanf("%d%d",&A,&B);
-    printf("%d %d",solve(B),solve(A-1));
+    printf("%d",solve(B)-solve(A-1));
 }
