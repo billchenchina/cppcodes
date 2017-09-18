@@ -1,11 +1,14 @@
-
 #include <bits/stdc++.h>
 
 using namespace std;
 
-int pow3[11];
-int inch3[60000][11];
+
 int dp_map[60000][11];
+
+int pow3[11];
+
+int inch3[60000][11];
+
 int mapn[11][11];
 int n,m;
 
@@ -39,6 +42,16 @@ int main()
         {
             fill(mapn[i],mapn[i]+11,INT_MAX);
         }
+
+
+
+        for(int i=0;i<pow3[n];++i)
+        {
+        	fill(dp_map[i],dp_map[i]+n,INT_MAX);
+        }
+
+
+
         for(int i=0;i<m;++i)
         {
             int x,y,z;
@@ -46,18 +59,31 @@ int main()
             x--;y--;
             mapn[x][y]=mapn[y][x]=min(mapn[y][x],z);
         }
+
+        
+        for(int i=0;i<n;++i)
+        {
+        	dp_map[pow3[i]][i]=0;
+        }
+
         for(int i=0;i<pow3[n];++i)
         {
             bool have_not_visited=0;
-            for(int k=0;k<n;++k)
+            for(int j=0;j<n;++j)
             {
-                if(inch3[i][k]==0)
+                if(inch3[i][j]==0)
                 {
                     have_not_visited=1;
                 }
-                if(inch3[i][k]<2)
+                if(dp_map[i][j]!=INT_MAX)
                 {
-                    dp[]
+                	for(int k=0;k<n;++k)
+                	{
+                		if(mapn[j][k]!=INT_MAX&&inch3[i][k]!=2)
+                		{
+                			dp_map[i+pow3[k]][k]=min(dp_map[i+pow3[k]][k],dp_map[i][j]+mapn[j][k]);
+                		}
+                	}
                 }
             }
 
@@ -69,5 +95,14 @@ int main()
                 }
             }
         }
+        if(minn==INT_MAX)
+        {
+        	cout<<-1<<endl;
+        }
+        else
+        {
+        	cout<<minn<<endl;
+        }
+
     }
 }
