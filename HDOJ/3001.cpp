@@ -42,16 +42,10 @@ int main()
         {
             fill(mapn[i],mapn[i]+11,INT_MAX);
         }
-
-
-
         for(int i=0;i<pow3[n];++i)
         {
         	fill(dp_map[i],dp_map[i]+n,INT_MAX);
         }
-
-
-
         for(int i=0;i<m;++i)
         {
             int x,y,z;
@@ -59,13 +53,11 @@ int main()
             x--;y--;
             mapn[x][y]=mapn[y][x]=min(mapn[y][x],z);
         }
-
-        
         for(int i=0;i<n;++i)
         {
         	dp_map[pow3[i]][i]=0;
         }
-
+        
         for(int i=0;i<pow3[n];++i)
         {
             bool have_not_visited=0;
