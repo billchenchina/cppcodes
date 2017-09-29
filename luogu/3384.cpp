@@ -30,6 +30,11 @@ void connect(int x,int y)
     cnt++;
 }
 
+void buildtree()
+{
+    
+}
+
 
 int main()
 {
@@ -37,6 +42,7 @@ int main()
     for(int i=1; i<=N; ++i)
     {
         cin>>val[i];
+        val[i]%=P;
     }
     for(int i=1; i<=N-1; ++i)
     {
@@ -44,6 +50,7 @@ int main()
         cin>>x>>y;
         connect(x,y);
     }
+    buildtree();
     for(int i=1; i<=M; ++i)
     {
         int opt;
@@ -54,6 +61,7 @@ int main()
         {
             int x,y,z;
             cin>>x>>y>>z;
+
             break;
         }
         case 2:
