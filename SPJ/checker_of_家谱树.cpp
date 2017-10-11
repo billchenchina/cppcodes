@@ -7,33 +7,37 @@ int main(int argc,char *argv[])
 {
     setName("Test the answer");
     registerTestlibCmd(argc, argv);
-    bool correct=1;
+    bool correct=true;
     int N;
     N=inf.readInt();
-    std::vector<int>pos(N+1,0);
-    std::set<int>answer_set;
-    for(int i=1; i<=N; i++) {
-        int a;
-        a=ouf.readInt();
-        pos[a]=i;
-        answer_set.insert(i);
-    }
-    std::set<int>output_set;
-    for(int i=1; i<=N; i++) {
-        while(true) {
-            int a;
-            a=inf.readInt();
-            output_set.insert(a);
-            if(a!=0) {
-                if(pos[i]>pos[a])
-                    correct=0;
-            } else break;
+    std::vector<int>vec(N+1,0);
+    std::vector<int>vec2(N+1,0);
+    for(int i=1; i<=N; ++i)
+    {
+        if(ouf.eof())
+        {
+            quitf(_wa, "The answer is wrong");
+            return 0;
         }
+        vec[i]=ouf.readInt(1,N);
+        vec2[vec[i]]=i;
     }
-    if(answer_set==output_set)correct=false;
-    if(correct) {
-        quitf(_ok, "The answer is correct.");
-    } else {
-        quitf(_wa, "The answer is wrong");
+    for(int fa=1; fa<=N; ++fa)
+    {
+        int son;
+        for(;;)
+        {
+            son=inf.readInt(0,N);
+            if(son==0)
+            {
+                break;
+            }
+            if(vec2[son]<vec2[fa])
+            {
+                quitf(_wa,"The answer is wrong");
+            }
+        }
+
     }
+    quitf(_ok, "The answer is correct.");
 }
