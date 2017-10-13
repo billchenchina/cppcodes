@@ -8,50 +8,32 @@ struct segment_tree_node
     int r;
     int sum;
     int lazy;
+    segment_tree_node*l_child,*r_child;
+    segment_tree_node(){}
+    segment_tree_node(int _l,int _r)
+    {
+        l=_l;
+        r=_r;
+        if(l==r)
+        {
+            return;
+        }
+        else
+        {
+            l_child=new segment_tree_node(l,l+((r-l)>>1));
+            r_child=new segment_tree_node(l+1+((r-l)>>1),r);
+        }
+    }
 };
-
-segment_tree_node tree[400000];
-
-void buildtree(const vector<int>&arr,int o=1)
-{
-    if(o==1)
-    {
-        tree[o].l=1;
-        tree[o].r=arr.size();
-        buildtree(arr,o<<1);
-        buildtree(arr,(o<<1)+1);
-        tree[o].sum=tree[o<<1].sum
-                                +tree[(o<<1)+1].sum;
-        return;
-    }
-    if(o&1)
-    {
-        tree[o].l=tree[o>>1].l;
-        tree[o].r=(tree[o>>1].l+tree[o>>1].r)>>1;
-        if(tree[o].l==tree[o].r)
-        {
-            return;
-        }
-    }
-    else
-    {
-        tree[o].r=tree[o>>1].r;
-        tree[o].l=1+(tree[o>>1].l+tree[o>>1].r)>>1;
-        if(tree[o].l==tree[o].r)
-        {
-            return;
-        }
-    }
-}
 
 int main()
 {
     int N,M;
     cin>>N>>M;
     vector<int> arr(N+1,0);
-    for(int i=1;i<=N;++i)
+    for(int i=1; i<=N; ++i)
     {
         cin>>arr[i];
     }
-    buildtree(arr);
+
 }

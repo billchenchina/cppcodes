@@ -1,144 +1,127 @@
 #include <bits/stdc++.h>
 
-using namespace std;
-#define MAXN 100001
-long long n;
-long long arr[MAXN];
+using std::cin;
+using std::cout;
+using std::endl;
 
-struct node
+namespace BCC
 {
-    long long l_range;
-    long long r_range;
-    long long value;
-    long long mid;
-    static void init(long long);
-    static void addValue(long long,long long,long long,long long);
-    static long long getValue(long long,long long,long long);
-};
-
-node nodes[4*MAXN];
-
-
-void node::init(long long o=1)
-{
-    if(o==1)
-    {
-        nodes[o].l_range=1;
-        nodes[o].r_range=n;
-        nodes[o].mid=1+(n-1)/2;
-        init(o<<1);
-        init((o<<1)+1);
-        nodes[o].value=nodes[o<<1].value+nodes[1+(o<<1)].value;
-    }
-    else
-    {
-        long long fa=o>>1;
-        if(o&1)
+	class interval_tree
+	{
+	public:
+		interval_tree(){}
+		interval_tree(long long L,long long R,const std::vector<long long> &v)
+		{
+            lazy_add=0;
+            l_range=L;
+            r_range=R;
+            if(L==R)
+            {
+                l_child=r_child=NULL;
+                sum=v[L];
+                return;
+            }
+            else
+            {
+                #define mid (L+((R-L)>>1))
+                l_child=new interval_tree(L,mid,v);
+                r_child=new interval_tree(mid+1,R,v);
+                #undef mid
+                sum=l_child->sum+r_child->sum;
+                return;
+            }
+		}
+        interval_tree *l_child,*r_child;
+        long long l_range,r_range;
+        long long lazy_add;
+        long long sum;
+        #define mid (l_range+((r_range-l_range)>>1))
+        void add(long long x,long long y,long long k)
         {
-            nodes[o].l_range=nodes[fa].mid+1;
-            nodes[o].r_range=nodes[fa].r_range;
+            if(l_range==x&&r_range==y)
+            {
+                lazy_add+=k;
+                return;
+            }
+            else
+            {
+                sum+=k*(y-x+1);
+                
+                if(mid+1<=x)
+                {
+                    r_child->add(x,y,k);
+                }
+                else if(mid>=y)
+                {
+                    l_child->add(x,y,k);
+                }
+                else
+                {
+                    l_child->add(x,mid,k);
+                    r_child->add(mid+1,y,k);
+                }
+                
+            }
         }
-        else
+        long long querysum(long long x,long long y)
         {
-            nodes[o].l_range=nodes[fa].l_range;
-            nodes[o].r_range=nodes[fa].mid;
+            if(x==l_range&&y==r_range)
+            {
+                return sum+(y-x+1)*lazy_add;
+            }
+            sum+=(r_range-l_range+1)*lazy_add;
+            l_child->add(l_range,mid,lazy_add);
+            r_child->add(mid+1,r_range,lazy_add);
+            lazy_add=0;
+            if(y<=mid)
+            {
+                return l_child->querysum(x,y);
+            }
+            else if(x>=mid+1)
+            {
+                return r_child->querysum(x,y);
+            }
+            else
+            {
+                return l_child->querysum(x,mid)+r_child->querysum(mid+1,y);
+            }
         }
-        nodes[o].value=0;
-        nodes[o].mid=nodes[o].l_range+(nodes[o].r_range-nodes[o].l_range)/2;
-        if(nodes[o].l_range==nodes[o].r_range)
-        {
-            nodes[o].value=arr[nodes[o].l_range];
-            return;
-        }
-        else
-        {
-            init(o<<1);
-            init((o<<1)+1);
-            nodes[o].value=nodes[o<<1].value+nodes[1+(o<<1)].value;
-        }
-    }
-}
-
-void node::addValue(long long l,long long r,long long val,long long o=1)
-{
-    if(nodes[o].l_range==nodes[o].r_range)
-    {
-        nodes[o].value+=val;
-        return;
-    }
-    else
-    {
-        if(nodes[o].mid>=r)
-        {
-            addValue(l,r,val,o<<1);
-            nodes[o].value+=val*(r-l+1);
-        }
-        else if(nodes[o].mid+1<=l)
-        {
-            addValue(l,r,val,1+(o<<1));
-            nodes[o].value+=val*(r-l+1);
-        }
-        else
-        {
-            addValue(l,nodes[o].mid,val,o<<1);
-            addValue(nodes[o].mid+1,r,val,(o<<1)+1);
-            nodes[o].value+=val*(r-l+1);
-        }
-    }
-}
-long long node::getValue(long long l,long long r,long long o=1)
-{
-    if(nodes[o].l_range==l&&nodes[o].r_range==r)
-    {
-        return nodes[o].value;
-    }
-    else if(r<=nodes[o].mid)
-    {
-        return getValue(l,r,o<<1);
-    }
-    else if(l>=nodes[o].mid+1)
-    {
-        return getValue(l,r,(o<<1)+1);
-    }
-    else
-    {
-        return getValue(l,nodes[o].mid,o<<1)
-            +getValue(nodes[o].mid+1,r,1+(o<<1));
-    }
+        #undef mid
+	};
 }
 
 int main()
 {
-    ios::sync_with_stdio(false);
-    long long m;
-    cin>>n>>m;
-    //cin>>n>>m;
-    //cout<<endl;
-    for(long long i=1; i<=n; ++i)
-    {
-        cin>>arr[i];
-        //cin>>val;
-    }
-    node::init();
-    while(m--)
+	long long N,M;
+	cin>>N>>M;
+	std::vector<long long> v(N+1);
+	for(long long i=1;i<=N;++i)
+	{
+		cin>>v[i];
+	}
+	BCC::interval_tree *tree=new BCC::interval_tree(1,N,v);
+    for(long long i=1;i<=M;++i)
     {
         long long opt;
         cin>>opt;
-        //cin>>opt;
-        if(opt==1)
+        switch(opt)
         {
-            long long x,y,k;
-            cin>>x>>y>>k;
-            //cin>>x>>y>>k;
-            node::addValue(x,y,k);
-        }
-        else if(opt==2)
-        {
-            long long x,y;
-            cin>>x>>y;
-            //cin>>x>>y;
-            cout<<node::getValue(x,y)<<endl;
-            //cout<<node::getValue(x,y)<<endl;
+            case 1:
+            {
+                long long x,y,k;
+                cin>>x>>y>>k;
+                tree->add(x,y,k);
+                break;
+            }
+            case 2:
+            {
+                long long x,y;
+                cin>>x>>y;
+                cout<<tree->querysum(x,y)<<endl;
+                break;
+            }
+            default:
+                break;
         }
     }
 }
