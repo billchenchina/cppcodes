@@ -66,6 +66,30 @@ public:
 
         }
     }
+    void times(long long x,long long y,long long times)
+    {
+        if(l_range==x&&r_range==y)
+        {
+            lazy_times*=times;
+            return;
+        }
+        else
+        {
+            if(x>=mid+1)
+            {
+                this->r_child->times(x,y,times);
+            }
+            else if(y<=mid)
+            {
+                this->l_child->times(x,y,times);
+            }
+            else
+            {
+                this->l_child->times(x,mid,times);
+                this->r_child->times(mid+1,y,times);
+            }
+        }
+    }
     long long querysum(long long x,long long y)
     {
         if(x==l_range&&y==r_range)
@@ -89,10 +113,7 @@ public:
             return l_child->querysum(x,mid)+r_child->querysum(mid+1,y);
         }
     }
-    void times(long long x,long long y,long long times)
-    {
 
-    }
 #undef mid
 };
 }
