@@ -8,7 +8,7 @@ int main()
     int P[110010*2];
     while(getline(cin,str))
     {
-    if(str.length()==1)break;
+    if(str.length()==0)break;
     string str2="$#";
     int len=str.length();
     for(int i=0;i<len;++i)
