@@ -6,9 +6,8 @@ int main()
 {
     string str;
     int P[110010*2];
-    while(getline(cin,str))
+    while(cin>>str)
     {
-    if(str.length()==0)break;
     string str2="$#";
     int len=str.length();
     for(int i=0;i<len;++i)
@@ -45,5 +44,6 @@ int main()
         }
         if(P[i]>ans)ans=P[i];
     }
-    cout<<ans-1<<endl;}
+    cout<<ans-1<<endl;
+    }
 }
