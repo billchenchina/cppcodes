@@ -60,7 +60,7 @@ public:
         			}
         		}
         	}
-        	return sm;
+            return sm;
         }
     }
 };
@@ -86,14 +86,23 @@ T fast_pow(T down,long long n)
 }
 int main ()
 {
-    BCC::square_matrix sm(2);
-    sm._matrix_array[0][0]=1;
-    sm._matrix_array[0][1]=1;
-    sm._matrix_array[1][0]=1;
-    sm._matrix_array[1][1]=0;
-    long long n;
-    std::cin>>n;
-    BCC::square_matrix sm2=fast_pow(sm,n-1);
-    std::cout<<sm2._matrix_array[0][0];
-
+    long long n,k;
+    std::cin>>n>>k;
+    BCC::square_matrix sm(n);
+    for(int i=0;i<n;++i)
+    {
+        for(int j=0;j<n;++j)
+        {
+            std::cin>>sm._matrix_array[i][j];
+        }
+    }
+    sm=fast_pow(sm,k);
+    for(int i=0;i<n;++i)
+    {
+        for(int j=0;j<n;++j)
+        {
+            std::cout<<sm._matrix_array[i][j]<<' ';
+        }
+        std::cout<<std::endl;
+    }
 }
