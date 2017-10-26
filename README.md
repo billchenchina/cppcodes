@@ -3,7 +3,7 @@ Codes here are answers to Problems in Online Judge Platforms
 
 Common Online Judge sites are below.
 
-===
+---
 
 [Luogu](https://www.luogu.org/)
 
