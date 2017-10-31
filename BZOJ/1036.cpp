@@ -60,6 +60,11 @@ struct treeNode
     }
     void setValue(int l,int r,int val)
     {
+        if(l==l_r&&r==r_r)
+        {
+            this->maxn=this->sum=val;
+            return;
+        }
         if(l>=mid+1)
         {
             this->r_c->setValue(l,r,val);
@@ -123,7 +128,7 @@ struct treeNode
     }
 };
 #undef mid
-
+treeNode *root;
 struct Node
 {
     int dfn;
@@ -208,13 +213,61 @@ void dfs2(Node *u)
         }
     }
 }
-// missing 
+// missing
 //     change()
 //     queryMax()
 //     querySum()
 
+void change(Node *u,int val)
+{
+    int dfn=u->dfn;
+    root->setValue(dfn,dfn,val);
+}
+
+int queryMax(Node *u1,Node *u2)
+{
+    int maxn=INT_MIN;
+    while(u1->chain!=u2->chain)
+    {
+        if(u1->chain->top->depth > u2->chain->top->depth)
+        {
+            swap(u1,u2);
+        }
+        maxn=max(maxn,root->queryMax(u2->dfn,u2->chain->top->dfn));
+        u2=u2->chain->top->father;
+    }
+    if(u1->depth>u2->depth)
+    {
+        swap(u1,u2);
+    }
+    maxn=max(maxn,root->queryMax(u1->dfn,u2->dfn));
+    return maxn;
+}
+
+int querySum(Node *u1,Node *u2)
+{
+    int sum=0;
+    while(u1->chain!=u2->chain)
+    {
+        if(u1->chain->top->depth > u2->chain->top->depth)
+        {
+            swap(u1,u2);
+        }
+        sum+=root->querySum(u2->dfn,u2->chain->top->dfn);
+        u2=u2->chain->top->father;
+    }
+    if(u1->depth > u2->depth)
+    {
+        swap(u1,u2);
+    }
+    sum+=root->querySum(u1->dfn,u2->dfn);
+    return sum;
+
+}
+
 int main()
 {
+    //freopen("1036.in","r",stdin);
     read(n);
     for(int i=0; i<n-1; ++i)
     {
@@ -225,35 +278,45 @@ int main()
         connect(b,a);
     }
     nodes[1].depth=1;
+
     dfs1(&nodes[1]);
     dfs2(&nodes[1]);
-    treeNode *root=new treeNode(1,n);
+
+    root=new treeNode(1,n);
+
     int q;
-    read(q);
     char opt[20];
-    for(int i=0;i<q;++i)
+    for(int i=1;i<=n;++i)
+    {
+        int x;
+        scanf("%d",&x);
+        change(&nodes[i],x);
+    }
+    read(q);
+    for(int i=0; i<q; ++i)
     {
         scanf("%s",opt);
-        if(strcmp(opt,"CHANGE"))
+        if(strcmp(opt,"CHANGE")==0)
         {
             int u,val;
             u=read();
             val=read();
             change(&nodes[u],val);
         }
-        else if(strcmp(opt,"QMAX"))
+        else if(strcmp(opt,"QMAX")==0)
         {
             int u,v;
             u=read();
             v=read();
-            printf("%d",queryMax(&nodes[u],&nodes[v]));
+            cout<<queryMax(&nodes[u],&nodes[v])<<endl;
         }
         else
         {
             int u,v;
             u=read();
             v=read();
-            printf("%d",querySum(&nodes[u],&nodes[v]));
+            cout<<querySum(&nodes[u],&nodes[v])<<endl;
         }
+        //cout<<i<<endl;
     }
 }
