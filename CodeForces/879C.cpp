@@ -104,7 +104,7 @@ int main()
         changes[status[i]].push_back(i);
     }
     cout<<3<<endl;
-    int and_val=0;
+    int and_val=1023;
     for(int i=0;i<changes[0].size();++i)
     {
         setbit_0(and_val,changes[0][i]);
