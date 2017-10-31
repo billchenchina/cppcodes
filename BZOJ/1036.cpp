@@ -20,7 +20,7 @@ void read(int&b)
         res=res*10+a-'0';
         a=getchar();
     }
-    b=res;
+    b=res*flag;
 }
 
 int read()
@@ -60,7 +60,7 @@ struct treeNode
     }
     void setValue(int l,int r,int val)
     {
-        if(l==l_r&&r==r_r)
+        if(l==l_r&&r==r_r&&l_r==r_r)
         {
             this->maxn=this->sum=val;
             return;
@@ -129,6 +129,7 @@ struct treeNode
 };
 #undef mid
 treeNode *root;
+
 struct Node
 {
     int dfn;
@@ -168,8 +169,6 @@ int dfn=1;
 void dfs1(Node *u)
 {
     u->size=1;
-    u->dfn=dfn;
-    dfn++;
     u->visited=true;
     for(Edge *e=u->first; e; e=e->next)
     {
@@ -191,6 +190,8 @@ void dfs1(Node *u)
 
 void dfs2(Node *u)
 {
+    u->dfn=dfn;
+    dfn++;
     if(u->father==NULL||u!=u->father->maxChild)
     {
         u->chain=new Chain;
@@ -213,10 +214,6 @@ void dfs2(Node *u)
         }
     }
 }
-// missing
-//     change()
-//     queryMax()
-//     querySum()
 
 void change(Node *u,int val)
 {
@@ -233,7 +230,7 @@ int queryMax(Node *u1,Node *u2)
         {
             swap(u1,u2);
         }
-        maxn=max(maxn,root->queryMax(u2->dfn,u2->chain->top->dfn));
+        maxn=max(maxn,root->queryMax(u2->chain->top->dfn,u2->dfn));
         u2=u2->chain->top->father;
     }
     if(u1->depth>u2->depth)
@@ -253,7 +250,7 @@ int querySum(Node *u1,Node *u2)
         {
             swap(u1,u2);
         }
-        sum+=root->querySum(u2->dfn,u2->chain->top->dfn);
+        sum+=root->querySum(u2->chain->top->dfn,u2->dfn);
         u2=u2->chain->top->father;
     }
     if(u1->depth > u2->depth)
@@ -289,7 +286,7 @@ int main()
     for(int i=1;i<=n;++i)
     {
         int x;
-        scanf("%d",&x);
+        x=read();
         change(&nodes[i],x);
     }
     read(q);
