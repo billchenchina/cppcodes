@@ -1,4 +1,3 @@
-// Now bad version
 #include <bits/stdc++.h>
 
 using namespace std;
@@ -26,8 +25,8 @@ void addEdge(Node *from,Node *to,int cap)
     e->next=from->first;
     from->first=e;
 }
-
-void bfs(Node *a)
+int S,T;
+bool bfs(Node *a)
 {
     a->level=1;
     queue<Node*>q;
@@ -39,13 +38,18 @@ void bfs(Node *a)
         for(Edge *e=u->first; e; e=e->next)
         {
             Node *v=e->to;
-            if(v->level==0)
+            if(v->level==0&&e->flow<e->cap)
             {
                 v->level=u->level+1;
                 q.push(v);
             }
         }
     }
+    if(Nodes[T].level==0)
+    {
+        return false;
+    }
+    return true;
 }
 
 int augpath(Node *u,Node *T,int max_aug)
@@ -60,7 +64,7 @@ int augpath(Node *u,Node *T,int max_aug)
         Node *v=e->to;
         if(v->level==u->level+1&&e->flow< e->cap)
         {
-            int z=augpath(v,T,max(max_aug,e->cap-e->flow));
+            int z=augpath(v,T,min(max_aug,e->cap-e->flow));
             if(z>0)
             {
                 e->flow+=z;
@@ -73,7 +77,7 @@ int augpath(Node *u,Node *T,int max_aug)
 
 int main()
 {
-    int N,M,S,T;
+    int N,M;
     cin>>N>>M>>S>>T;
     for(int i=0; i<M; ++i)
     {
@@ -81,13 +85,23 @@ int main()
         cin>>u>>v>>w;
         addEdge(&Nodes[u],&Nodes[v],w);
     }
-    bfs(&Nodes[S]);
     int ans=0;
     for(;;)
     {
-        int aug=augpath(&Nodes[S],&Nodes[T],INT_MAX);
-        if(aug==0)break;
-        ans+=aug;
+        for(int i=1;i<=N;++i)
+        {
+            Nodes[i].level=0;
+        }
+
+        if(bfs(&Nodes[S])<=0)break;
+        int aug;
+        do
+        {
+            aug=augpath(&Nodes[S],&Nodes[T],INT_MAX);
+            ans+=aug;
+        }
+        while(aug>0);
+
     }
     cout<<ans;
 }
