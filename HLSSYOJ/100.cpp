@@ -37,16 +37,5 @@ int main()
     {
         ans_vec.push_back(vbs[i].to_ulong());
     }
-    int maxn=-1;
-    for(int i=0;i<ans_vec.size();++i)
-    {
-        for(int j=0;j<i;++j)
-        {
-            if((ans_vec[i]&ans_vec[j])>maxn)
-            {
-                maxn=ans_vec[i]&ans_vec[j];
-            }
-        }
-    }
-    cout<<maxn;
+    cout<<ans_vec[0]&ans_vec[1];
 }
