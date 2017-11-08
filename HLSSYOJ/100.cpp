@@ -32,10 +32,7 @@ int main()
             continue;
         }
     }
-    vector<int>ans_vec;
-    for(int i=0;i<vbs.size();++i)
-    {
-        ans_vec.push_back(vbs[i].to_ulong());
-    }
-    cout<<ans_vec[0]&ans_vec[1];
+    int x=vbs[0].to_ulong();
+    int y=vbs[1].to_ulong();
+    cout<<x&y;
 }
