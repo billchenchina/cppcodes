@@ -1,4 +1,4 @@
-## C++ Codes by ctyzxx <img src="https://avatars0.githubusercontent.com/u/7758042?v=3&s=460" width=32px length=32px />
+## C++ Codes by billchenchina <img src="https://avatars0.githubusercontent.com/u/7758042?v=3&s=460" width=32px length=32px />
 Codes here are answers to Problems in Online Judge Platforms
 
 Common Online Judge sites are below.
