@@ -46,14 +46,14 @@ struct Graph
         vector<int>dis(n,INT_MAX);
         vector<bool>vis(n,0);
         dis.at(from)=0;
-        /* Why not here?
+        // Preserve here is ok
         for(int i=first.at(from);~i;i=_e.at(i).next)
         {
             Edge &e=_e.at(i);
             int v=e.to;
             dis.at(v)=min(dis.at(v),e.length);
         }
-        */
+
         priority_queue<Edge>pq;
         pq.push(Edge(from,0));
         while(!pq.empty())
@@ -64,11 +64,11 @@ struct Graph
             int u=e.to;
             for(int i=first.at(e.to);~i;i=_e.at(i).next)
             {
-                Edge &e=_e.at(i);
+                Edge e=_e.at(i);
                 int v=e.to;
                 if(!vis.at(v))
                 {
-                    if(dis.at(v)>dis.at(u)+e.length)
+                    if(dis.at(v)>=dis.at(u)+e.length)
                     {
                         dis.at(v)=dis.at(u)+e.length;
                         e.to=v;
