@@ -1,42 +1,50 @@
-#include <bits/stdc++.h>
-
+#include<bits/stdc++.h>
+#define MAXN 200010
+#define INF 0xf66ccff
 using namespace std;
-
-
-void dfs(int root,int i,vector<int>&visited,int &_dfn,vector<int>&to_list,int &counter)
-{
-    counter++;
-    visited[i]=_dfn;
-    _dfn++;
-}
-
+typedef int dfn_t;
+int n,t[MAXN],mark[MAXN],ans=INF,now=1;
+dfn_t dfn[MAXN];
+bool vis[MAXN];
 int main()
 {
-    int n;
     cin>>n;
-    vector<int>to_list(n+1);
-    vector<list<int> >in_list(n+1);
-    for(int i=1;i<=n;++i)
+    for(int i=1; i<=n; i++)
     {
-        int t;
-        cin>>t;
-        to_list[i]=t;
-        in_list[t].push_back(i);
+        cin>>t[i];
     }
-    vector<int>visited(n+1,0);
-    int maxn=INT_MAX;
-    int _dfn=1;
-    for(int i=1;i<=n;++i)
+    for(int i=1; i<=n; i++)
     {
-        int counter=0;
-        if(!visited[i])
+        if(!vis[i])
         {
-            //dfs(i,i,visited,to_list,counter);
+            int p=i;
+            dfn_t s=0;
+
+            while(1)
+            {
+                if(vis[p])
+                {
+                    if(mark[p]==now)
+                    {
+                        if(ans>s-dfn[p])
+                        {
+                            ans=s-dfn[p];
+                        }
+                    }
+                    break;
+                }
+                else
+                {
+                    mark[p]=now;
+                    vis[p]=true;
+                    dfn[p]=s;
+                    s++;
+                    p=t[p];
+                }
+            }
+            now++;
         }
     }
-    cout<<maxn;
-
-
-
-
+    cout<<ans;
+    return 0;
 }
