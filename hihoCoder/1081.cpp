@@ -5,22 +5,6 @@ using namespace std;
 int mapn[1001][1001];
 
 
-
-struct Node
-{
-    int id;
-    int *S;
-    bool operator<(const Node&n)const
-    {
-        return *S<(*n.S);
-    }
-    Node(int _id,int *_S)
-    {
-        id=_id;
-        S=_S;
-    }
-};
-
 int main()
 {
     ios::sync_with_stdio(false);
@@ -68,10 +52,8 @@ int main()
             {
                 id=i;
                 minn=S_arr[i];
-                // cout<<minn<<' ';
             }
         }
-        // cout<<endl<<id<<endl;
         if(id==T||id==0)
         {
             break;
