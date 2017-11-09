@@ -35,48 +35,48 @@ struct Graph
     }
     void addEdge(int _u,int _v,int _l)
     {
-        _e[counter].to=_v;
-        _e[counter].length=_l;
-        _e[counter].next=first[_u];
-        first[_u]=counter;
+        _e.at(counter).to=_v;
+        _e.at(counter).length=_l;
+        _e.at(counter).next=first[_u];
+        first.at(_u)=counter;
         counter++;
     }
     vector<int>Dijkstra(int from)
     {
         vector<int>dis(n,INT_MAX);
         vector<bool>vis(n,0);
-        dis[from]=0;
-        for(int i=first[from];~i;i=_e[i].next)
+        dis.at(from)=0;
+        for(int i=first.at(from);~i;i=_e.at(i).next)
         {
-            Edge &e=_e[i];
+            Edge &e=_e.at(i);
             int v=e.to;
-            dis[v]=min(dis[v],e.length);
+            dis.at(v)=min(dis.at(v),e.length);
         }
         priority_queue<Edge>pq;
         pq.push(Edge(from,0));
         while(!pq.empty())
         {
             Edge e=pq.top();pq.pop();
-            if(vis[e.to]&&from==e.to)continue;
-            vis[e.to]=true;
+            if(vis.at(e.to)&&from==e.to)continue;
+            vis.at(e.to)=true;
             int u=e.to;
-            for(int i=first[e.to];~i;i=_e[i].next)
+            for(int i=first.at(e.to);~i;i=_e.at(i).next)
             {
-                Edge &e=_e[i];
+                Edge &e=_e.at(i);
                 int v=e.to;
-                if(!vis[v])
+                if(!vis.at(v))
                 {
-                    if(dis[v]>dis[u]+e.length)
+                    if(dis.at(v)>dis.at(u)+e.length)
                     {
-                        dis[v]=dis[u]+e.length;
+                        dis.at(v)=dis.at(u)+e.length;
                         e.to=v;
-                        e.length=dis[v];
+                        e.length=dis.at(v);
                         pq.push(e);
                     }
                 }
             }
         }
-
+        return dis;
     }
 };
 
