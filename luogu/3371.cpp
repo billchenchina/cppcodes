@@ -79,26 +79,26 @@ struct Graph
             }
         }
         return dis;
+
     }
 };
 
 int main()
 {
-
-    int P,C,PB,PA1,PA2;
-    cin>>C>>P>>PB>>PA1>>PA2;
-    Graph g1(P,C*2);
-    for(int i=0;i<C;++i)
+    int N,M,S;
+    cin>>N>>M>>S;
+    Graph G(N,M);
+    for(int i=0;i<M;++i)
     {
-        int u,v,l;
-        cin>>u>>v>>l;
-        g1.addEdge(u-1,v-1,l);
-        g1.addEdge(v-1,u-1,l);
+        int f,g,w;
+        cin>>f>>g>>w;
+        G.addEdge(f-1,g-1,w);
     }
-    int ans=0;
-    vector<int>vec1=g1.Dijkstra(PB-1);
-    ans+=min(vec1[PA1-1],vec1[PA2-1]);
-    vector<int>vec2=g1.Dijkstra(PA1-1);
-    ans+=vec2[PA2-1];
-    cout<<ans;
+    vector<int>vec=G.Dijkstra(S-1);
+
+    for(int i=0;i<N;++i)
+    {
+        cout<<vec.at(i)<<' ';
+    }
 }
+
