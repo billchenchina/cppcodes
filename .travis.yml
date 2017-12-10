@@ -1,0 +1,7 @@
+language: cpp
+compiler:
+  - gcc
+script:
+  - g++ test.cpp -o test
+  - ./test
+  - cat files.log
