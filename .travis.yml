@@ -2,6 +2,6 @@ language: cpp
 compiler:
   - gcc
 script:
-  - g++ test.cpp -o test
-  - ./test
+  - g++ ci-main.cpp -o ci-main
+  - ./ci-main
   - cat files.log
