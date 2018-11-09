@@ -39,9 +39,13 @@ struct SegTree
                  << ", " << value << ")" << endl;
             cout << "Current Node status:" << endl
                  << left_range << ", " << right_range << endl;
+            cout << "Before sum: " << sum << endl;
         }
         sum += 1ll*(_right_range - _left_range +1)*value;
-        if(_left_range == _right_range)
+        if(verbose_mode) {
+            cout << "Now sum: " << sum << endl;
+        }
+        if(_left_range == _right_range && left_range == right_range)
         {
             return;
         }
@@ -63,26 +67,37 @@ struct SegTree
     {
         if(verbose_mode)
         {
-            cout << "SegTree::query(" << _left_range
-                 << ", " << _right_range << ")" << endl;
+
             cout << "Current Node status:" << endl
                  << left_range << ", " << right_range << endl;
+            cout << "SegTree::query(" << _left_range
+                 << ", " << _right_range << ")" << endl;
 
         }
+        int ans;
         if(_left_range == left_range && _right_range == right_range)
         {
-            return sum;
+            ans = sum;
         }
-        if(_left_range > left_range + ((right_range - left_range)>>1))
+        else if(_left_range > left_range + ((right_range - left_range)>>1))
         {
-            return right_sub_tree -> query(_left_range, _right_range);
+            ans =  right_sub_tree -> query(_left_range, _right_range);
         }
-        if(_right_range <= left_range + ((right_range - left_range)>>1))
+        else if(_right_range <= left_range + ((right_range - left_range)>>1))
         {
-            return left_sub_tree -> query(_left_range, _right_range);
+            ans =  left_sub_tree -> query(_left_range, _right_range);
         }
-        return left_sub_tree -> query(_left_range, left_range + ((right_range - left_range)>>1))
-               + right_sub_tree -> query(left_range + ((right_range - left_range)>>1)+1, _right_range);;
+        else
+        {
+            ans = left_sub_tree -> query(_left_range, left_range + ((right_range - left_range)>>1))
+                  + right_sub_tree -> query(left_range + ((right_range - left_range)>>1)+1, _right_range);
+        }
+        if(verbose_mode)
+        {
+            cout << "returns " << ans << endl;
+        }
+        return ans;
+
     }
 };
 
@@ -105,7 +120,8 @@ int main(int argc, char **argv)
     }
     for(int i = 0; i < M; ++i)
     {
-        if(verbose_mode) {
+        if(verbose_mode)
+        {
             cout << "Waiting user input" << endl;
         }
         int op;
