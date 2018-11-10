@@ -9,10 +9,11 @@ struct SegTree
     SegTree *right_sub_tree;
     int left_range;
     int right_range;
-    int sum;
+    long long sum;
+    int lazy_tag;
     SegTree(int _left_range, int _right_range):left_range(_left_range), right_range(_right_range)
     {
-        sum = 0;
+        sum = lazy_tag = 0;
         if(verbose_mode)
         {
             cout << "SegTree(" << _left_range
@@ -41,8 +42,27 @@ struct SegTree
                  << left_range << ", " << right_range << endl;
             cout << "Before sum: " << sum << endl;
         }
+        if(left_range == right_range)
+        {
+            sum += value;
+            if(verbose_mode)
+            {
+                cout << "Now sum: " << sum << endl;
+            }
+            return;
+        }
+        if(_left_range == left_range && _right_range == right_range)
+        {
+            lazy_tag += value;
+            if(verbose_mode)
+            {
+                cout << "Adding " << value << " to lazytag, terminate here." << endl;
+            }
+            return;
+        }
         sum += 1ll*(_right_range - _left_range +1)*value;
-        if(verbose_mode) {
+        if(verbose_mode)
+        {
             cout << "Now sum: " << sum << endl;
         }
         if(_left_range == _right_range && left_range == right_range)
@@ -73,24 +93,38 @@ struct SegTree
             cout << "SegTree::query(" << _left_range
                  << ", " << _right_range << ")" << endl;
 
+
         }
-        int ans;
+        long long ans;
         if(_left_range == left_range && _right_range == right_range)
         {
-            ans = sum;
-        }
-        else if(_left_range > left_range + ((right_range - left_range)>>1))
-        {
-            ans =  right_sub_tree -> query(_left_range, _right_range);
-        }
-        else if(_right_range <= left_range + ((right_range - left_range)>>1))
-        {
-            ans =  left_sub_tree -> query(_left_range, _right_range);
+            ans = sum + 1ll * lazy_tag *(right_range - left_range +1);
         }
         else
         {
-            ans = left_sub_tree -> query(_left_range, left_range + ((right_range - left_range)>>1))
-                  + right_sub_tree -> query(left_range + ((right_range - left_range)>>1)+1, _right_range);
+            if(lazy_tag != 0)
+            {
+                if(verbose_mode) {
+                    cout << "Pushing down, lazy_tag: " << lazy_tag << endl;
+                }
+                left_sub_tree -> add(left_range, left_range + ((right_range - left_range)>>1), lazy_tag);
+                right_sub_tree -> add(left_range + ((right_range - left_range)>>1) + 1, right_range, lazy_tag);
+                sum += 1ll * (right_range - left_range + 1) * lazy_tag;
+                lazy_tag = 0;
+            }
+            if(_left_range > left_range + ((right_range - left_range)>>1))
+            {
+                ans =  right_sub_tree -> query(_left_range, _right_range);
+            }
+            else if(_right_range <= left_range + ((right_range - left_range)>>1))
+            {
+                ans =  left_sub_tree -> query(_left_range, _right_range);
+            }
+            else
+            {
+                ans = left_sub_tree -> query(_left_range, left_range + ((right_range - left_range)>>1))
+                      + right_sub_tree -> query(left_range + ((right_range - left_range)>>1)+1, _right_range);
+            }
         }
         if(verbose_mode)
         {
@@ -140,3 +174,4 @@ int main(int argc, char **argv)
         }
     }
 }
+
